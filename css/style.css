@@ -31,6 +31,7 @@
 
 * {
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 html,
@@ -141,7 +142,7 @@ body {
     position: relative;
     overflow: hidden;
     background: var(--bg-light);
-    min-height: 100vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
 }
@@ -153,20 +154,54 @@ body {
 }
 
 .hero-content {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Dá um pouco mais de espaço para o texto */
+    align-items: center;
+    gap: 20px;
+    padding: 72px 0;
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 40px;
-    padding: 72px 0;
+}
+
+/* Remova o margin-left fixo que está causando o erro */
+.hero-content img {
+    width: 100%; /* Faz a imagem ser responsiva ao tamanho da coluna */
+    max-width: 450px; /* Define um limite máximo */
+    height: auto;
+    border-radius: 20px; /* Opcional: para suavizar as bordas */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    justify-self: center; /* Centraliza a imagem na coluna dela */
+    animation: drift1 1s ease-in-out 1;
+}
+
+@keyframes drift1 {
+    0% {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .hero-copy {
     max-width: 900px;
+    animation: drift 1s ease-in-out 1;
 }
+
+@keyframes drift {
+    0% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX();
+    }
+
+}
+
+
 
 .hero-chip {
     display: inline-block;
@@ -202,8 +237,10 @@ body {
     margin-top: 42px;
     display: flex;
     gap: 16px;
-    justify-content: flex-start; /* Alinha à esquerda no desktop */
-    flex-wrap: wrap; /* Permite quebrar linha se o espaço acabar */
+    justify-content: flex-start;
+    /* Alinha à esquerda no desktop */
+    flex-wrap: wrap;
+    /* Permite quebrar linha se o espaço acabar */
 }
 
 .btn {
@@ -211,8 +248,9 @@ body {
     align-items: center;
     justify-content: center;
     /* Remova o min-width fixo de 260px se quiser que eles fiquem iguais */
-    width: 240px; 
-    padding: 18px 25px; /* Reduzi um pouco o padding para não "estourar" */
+    width: 240px;
+    padding: 18px 25px;
+    /* Reduzi um pouco o padding para não "estourar" */
     border-radius: 14px;
     font-size: 18px;
     font-weight: 800;
@@ -243,13 +281,6 @@ body {
     background: #2ca3e4;
 }
 
-.hero-content img {
-    width: 400px;
-    height: 400px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    margin-left: 270px;
-}
-
 /* ==== service ==== */
 .services {
     background: #f6f8fb;
@@ -276,6 +307,7 @@ body {
 .services h2 span {
     color: var(--blue);
 }
+
 .service-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -344,7 +376,7 @@ body {
 
 .features-row span {
     display: flex;
-    justify-content: center;
+
     align-items: center;
     gap: 10px;
 }
@@ -362,6 +394,20 @@ body {
 
 .section-kicker.light {
     color: #8fd8ff;
+}
+
+.section-kicker {
+    animation: drift2 1s ease-in-out 1;
+}
+
+@keyframes drift2 {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .contact-layout {
@@ -479,7 +525,7 @@ body {
     justify-content: center;
     text-decoration: none;
     transition: all 0.3s ease;
-    
+
     /* Animação de pulso constante */
     animation: pulse-whatsapp 2s infinite;
 }
@@ -500,7 +546,7 @@ body {
     font-size: 14px;
     font-weight: bold;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     opacity: 0;
     visibility: hidden;
     transform: translateX(10px);
@@ -521,16 +567,37 @@ body {
 
 /* Animação de Pulso */
 @keyframes pulse-whatsapp {
-    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
+}
+
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
 /* ==== AJUSTES DE RESPONSIVIDADE GLOBAL ==== */
 
 @media (max-width: 1200px) {
     .hero-content img {
-        margin-left: 0; /* Remove o deslocamento manual */
+        margin-left: 0;
+        /* Remove o deslocamento manual */
         width: 100%;
         max-width: 400px;
     }
@@ -539,17 +606,18 @@ body {
 /* ==== RESPONSIVIDADE (MOBILE & TABLET) ==== */
 
 @media (max-width: 980px) {
+
     /* 1. Reset Global e Esconder Elementos Desnecessários */
-    .menu, 
-    .cta-top, 
-    .hero-bg-angle, 
+    .menu,
+    .cta-top,
+    .hero-bg-angle,
     .whatsapp-tooltip {
         display: none !important;
     }
 
     /* 2. Ajuste Universal de Layout (Grid para 1 Coluna) */
-    .hero-content, 
-    .service-grid, 
+    .hero-content,
+    .service-grid,
     .contact-layout {
         grid-template-columns: 1fr;
         text-align: center;
@@ -563,17 +631,24 @@ body {
     }
 
     .hero-copy {
-        order: 1; /* Texto aparece primeiro */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        order: 1;
+        /* Texto aparece primeiro */
         max-width: 100%;
     }
 
     .hero h1 {
-        font-size: 32px; /* Ajuste de tamanho para telas menores */
+        font-size: 32px;
+        /* Ajuste de tamanho para telas menores */
     }
 
     .hero-content img {
-        order: 2; /* Imagem vai para baixo do texto */
-        margin: 20px auto 0 !important; /* Reseta o margin-left de 270px do desktop */
+        order: 2;
+        /* Imagem vai para baixo do texto */
+        margin: 20px auto 0 !important;
+        /* Reseta o margin-left de 270px do desktop */
         width: min(90%, 320px);
         height: auto;
         display: block;
@@ -592,13 +667,16 @@ body {
 
     /* 4. Ajustes de Conteúdo e Serviços */
     .service-card p {
-        width: 100% !important; /* Remove a largura fixa de 300px */
+        width: 100% !important;
+        /* Remove a largura fixa de 300px */
         max-width: 100%;
         margin: 0 auto;
     }
 
     .features-row {
+        display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 20px;
     }
 
@@ -607,48 +685,62 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: none !important; /* Garante que a borda de teste sumiu */
+        border: none !important;
+        /* Garante que a borda de teste sumiu */
         margin-top: 20px;
         padding: 0;
     }
 
     .contact-item {
         width: 100%;
-        max-width: 280px; /* Mantém ícones alinhados verticalmente */
+        max-width: 280px;
+        /* Mantém ícones alinhados verticalmente */
         justify-content: flex-start;
         text-align: left;
         margin-bottom: 15px;
     }
 
     .hero-actions {
-        justify-content: center; /* Centraliza os botões no mobile */
-        flex-direction: column; /* Coloca um sobre o outro */
+        justify-content: center;
+        /* Centraliza os botões no mobile */
+        flex-direction: column;
+        /* Coloca um sobre o outro */
         align-items: center;
         width: 100%;
     }
 
     .btn {
-        width: 100%; /* Botão ocupa a largura disponível no celular */
-        max-width: 320px; /* Limita para não ficar gigante em telas largas */
+        width: 100%;
+        /* Botão ocupa a largura disponível no celular */
+        max-width: 320px;
+        /* Limita para não ficar gigante em telas largas */
     }
 }
 
 @media (max-width: 980px) {
+
     /* 1. Botões do Hero: Empilhar e centralizar */
     .hero-actions {
         display: flex;
-        flex-direction: column; /* Um em cima do outro */
-        align-items: center;    /* Centraliza na tela */
-        gap: 12px;              /* Espaço entre eles */
+        flex-direction: column;
+        /* Um em cima do outro */
+        align-items: center;
+        /* Centraliza na tela */
+        gap: 12px;
+        /* Espaço entre eles */
         margin-top: 32px;
         width: 100%;
     }
 
     .hero-actions .btn {
-        width: 100%;           /* Ocupa a largura disponível */
-        max-width: 320px;      /* Mas não fica gigante */
-        min-width: 0;          /* Remove travas de largura do desktop */
-        margin-left: 0;        /* Remove qualquer margem residual */
+        width: 100%;
+        /* Ocupa a largura disponível */
+        max-width: 320px;
+        /* Mas não fica gigante */
+        min-width: 0;
+        /* Remove travas de largura do desktop */
+        margin-left: 0;
+        /* Remove qualquer margem residual */
         text-align: center;
     }
 
@@ -656,39 +748,57 @@ body {
     .contact-list {
         display: flex;
         flex-direction: column;
-        align-items: center;    /* Centraliza o bloco no mobile */
-        text-align: left;       /* Mantém o texto alinhado à esquerda internamente */
+        align-items: center;
+        /* Centraliza o bloco no mobile */
+        text-align: left;
+        /* Mantém o texto alinhado à esquerda internamente */
         padding: 0 20px;
     }
 
     .contact-item {
         display: flex;
-        align-items: center;    /* Alinha ícone e texto na mesma linha */
+        align-items: center;
+        /* Alinha ícone e texto na mesma linha */
         justify-content: flex-start;
         width: 100%;
-        max-width: 300px;       /* Mantém os ícones alinhados entre si */
+        max-width: 300px;
+        /* Mantém os ícones alinhados entre si */
         margin-bottom: 20px;
         gap: 15px;
     }
 
     .small-icon {
-        flex-shrink: 0;         /* Impede que o ícone seja esmagado */
+        flex-shrink: 0;
+        /* Impede que o ícone seja esmagado */
     }
 
     .contact-item strong {
-        font-size: 16px;        /* Ajuste para não quebrar linha em telas pequenas */
+        font-size: 16px;
+        /* Ajuste para não quebrar linha em telas pequenas */
         display: block;
     }
 }
 
 @media (max-width: 480px) {
+
     /* Ajustes para celulares bem pequenos */
     .hero h1 {
         font-size: 32px;
     }
-    
+
     .container {
         width: 92vw;
     }
 
+    .features-row span {
+        margin-top: 20px;
+    }
+
+}
+
+@media (max-width: 1024px) {
+    .service-grid {
+        display: flex;
+        flex-direction: column;
+    }
 }
