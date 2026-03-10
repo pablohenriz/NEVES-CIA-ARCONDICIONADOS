@@ -54,6 +54,22 @@ body {
 }
 
 
+.decoration-text {
+    background: linear-gradient(90deg, #2aa2e2, #1668b9);
+    
+    /* Faz o background ser cortado no formato das letras */
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* Torna o texto transparente para que o fundo apareça */
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+
+    /* Opcional: Garante que o gradiente não se repita se o texto for longo */
+    display: inline-block;
+}
+
+
 /*==== HEADER =====*/
 .topbar {
     position: sticky;
@@ -254,7 +270,7 @@ body {
     /* Permite quebrar linha se o espaço acabar */
 }
 
-
+/* button gerais */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -312,6 +328,73 @@ body {
 
 #leftbtp {
     margin-right: 30px;
+}
+
+/* === sobre ==== */
+.container-sobre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh; /* Mudado de height para min-height para evitar corte de conteúdo */
+    gap: 40px; /* Reduzi o gap para caber melhor em telas médias */
+    padding: 60px 0;
+}
+
+.container-sobre img {
+    width: 100%;
+    max-width: 400px; /* Mantém o limite, mas permite diminuir */
+    height: auto; /* Importante para não distorcer */
+    aspect-ratio: 1 / 1; /* Garante que continue quadrado */
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 20px; /* Adicionei para combinar com o estilo moderno */
+}
+
+
+
+.cont-sobre {
+    width: 100%; /* Ocupa o espaço disponível */
+    max-width: 600px; /* Limite máximo para desktop */
+}
+
+.cont-sobre h1 {
+    font-size: clamp(32px, 5vw, 50px); /* Fonte fluida */
+    margin-bottom: 20px;
+}
+
+.cont-sobre p {
+    width: 100%; /* Removido os 500px fixos */
+    max-width: 550px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+.cont-sobre .btn {
+    border: none;
+}
+/* ==== AJUSTE NA MEDIA QUERY (980px) ==== */
+
+@media(max-width: 980px) {
+    .container-sobre {
+        flex-direction: column-reverse; 
+        text-align: center; /* Centraliza o texto no mobile */
+        gap: 40px;
+        height: auto;
+    }
+
+    .cont-sobre {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza o botão e textos */
+    }
+
+    .cont-sobre p {
+        width: 350px;
+        margin: 0 auto 30px; /* Centraliza o parágrafo */
+    }
+
+    .container-sobre img {
+        max-width: 320px; /* Um pouco menor no mobile */
+    }
 }
 /* ==== service ==== */
 .services {
