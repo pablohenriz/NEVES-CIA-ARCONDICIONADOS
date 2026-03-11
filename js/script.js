@@ -15,9 +15,9 @@ const observer = new IntersectionObserver(
 reveals.forEach((element) => observer.observe(element));
 
 const imagens = [
-"/img/img-1-hero.webp",
-"/img/imagem de serviço1.webp",
-"/img/imagem-limpeza.webp"
+  "/img/img-1-hero.webp",
+  "/img/imagem de serviço1.webp",
+  "/img/imagem-limpeza.webp"
 ]
 
 let indice = 0
@@ -29,29 +29,46 @@ backgrounds[0].style.backgroundImage = `url('${imagens[0]}')`
 
 let ativo = 0
 
-function trocarImagem(dir){
+function trocarImagem(dir) {
 
-    if(dir === "right"){
-        indice = (indice + 1) % imagens.length
-    } else {
-        indice = (indice - 1 + imagens.length) % imagens.length
-    }
+  if (dir === "right") {
+    indice = (indice + 1) % imagens.length
+  } else {
+    indice = (indice - 1 + imagens.length) % imagens.length
+  }
 
-    const atual = backgrounds[ativo]
-    const proxima = backgrounds[ativo === 0 ? 1 : 0]
+  const atual = backgrounds[ativo]
+  const proxima = backgrounds[ativo === 0 ? 1 : 0]
 
-    proxima.style.backgroundImage = `url('${encodeURI(imagens[indice])}')`
+  proxima.style.backgroundImage = `url('${encodeURI(imagens[indice])}')`
 
-    proxima.style.opacity = 1
-    atual.style.opacity = 0
+  proxima.style.opacity = 1
+  atual.style.opacity = 0
 
-    ativo = ativo === 0 ? 1 : 0
+  ativo = ativo === 0 ? 1 : 0
 }
 
-function btnRgth(){
-    trocarImagem("right")
+function btnRgth() {
+  trocarImagem("right")
 }
 
-function btnLft(){
-    trocarImagem("left")
+function btnLft() {
+  trocarImagem("left")
+}
+
+
+let currentPos = 0;
+const trilho = document.getElementById('depoimentos-trilho');
+
+function moveSlide(direction) {
+  const cardWidth = document.querySelector('.service-card').offsetWidth + 20; // Largura + gap
+  const maxScroll = trilho.scrollWidth - trilho.parentElement.offsetWidth;
+
+  currentPos += direction * cardWidth;
+
+  // Limites para não rolar infinitamente para o vazio
+  if (currentPos < 0) currentPos = 0;
+  if (currentPos > maxScroll) currentPos = maxScroll;
+
+  trilho.style.transform = `translateX(-${currentPos}px)`;
 }

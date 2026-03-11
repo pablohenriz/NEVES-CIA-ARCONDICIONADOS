@@ -353,38 +353,117 @@ body {
     /* Adicionei para combinar com o estilo moderno */
 }
 
-/* === depoimentos === */
+
+.contains-dep {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: min(1200px, 95vw);
+}
+
+/* Estilo dos botões */
+.contains-dep {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: min(1200px, 95vw);
+}
+
+.carrossel-btn {
+    background: var(--blue);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 10;
+    transition: 0.3s;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrossel-btn:hover { background: var(--blue-dark); }
+
+/* Esconde botões no desktop se não houver muitos cards, ou ajuste posição */
+@media (max-width: 768px) {
+    .carrossel-btn { position: absolute; }
+    .prev { left: -10px; }
+    .next { right: -10px; }
+}
+
+
+/* === depoimentos corrigido === */
 .contain-depoimentos {
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    height: 60vh;
-}
-
-.block-contaim-1 {
-    width: 500px;
-    margin-bottom: 40px;
-    border: #003366 2px solid ;
-}
-
-.block-contaim-1 h1 {
-    font-size: 40px;
-}
-
-.block-contaim-1 p {
-    width: 400px;
-}
-
-
-.block-contaim-2 {
-    display: flex;
-    gap: 30px; /* Espaçamento entre os cards */
     justify-content: center;
+    text-align: center;
+    min-height: 80vh; /* Permite que o container cresça se necessário */
+    padding: 60px 20px;
     width: 100%;
 }
 
+.block-contaim-1 {
+    width: 100%;
+    max-width: 800px; /* Limite de largura para leitura confortável */
+    margin-bottom: 50px; /* Espaço para os cards abaixo */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.block-contaim-1 h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    margin: 10px 0 20px;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+.block-contaim-1 p {
+    max-width: 600px; /* Evita que o parágrafo fique largo demais */
+    margin: 0 auto;
+    color: var(--texto-corpo);
+    line-height: 1.6;
+}
+
+
+/* Garante que o container de depoimentos não use o Grid de 3 colunas dos serviços */
+.block-contaim-2 {
+    display: flex !important;
+    gap: 20px;
+    width: max-content;
+}
+
+/* Ajuste específico para o card dentro do carrossel */
+.depoimento-item {
+    min-width: 300px; /* Largura de cada card no mobile */
+    max-width: 350px; /* Largura de cada card no desktop */
+    flex-shrink: 0;  
+}
+
+/* Melhora a visualização da janela do carrossel */
+.carrossel-window {
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 10px;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+/* Posicionamento dos botões em telas menores */
+@media (max-width: 768px) {
+    .carrossel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .prev { left: -5px; }
+    .next { right: -5px; }
+}
 .cont-sobre {
     width: 100%;
     max-width: 600px;
@@ -397,7 +476,7 @@ body {
 
 .cont-sobre p {
     width: 100%;
-    max-width: 550px;
+    max-width: 650px;
     line-height: 1.6;
     margin-bottom: 30px;
 }
@@ -406,15 +485,12 @@ body {
     border: none;
 }
 
-.section-kicker-1 {
-    text-align: center;
-    margin: 0;
+.section-kicker-1 span{
     color: var(--azul-claro);
     letter-spacing: 1.5px;
     font-size: 15px;
     font-weight: 700;
 }
-
 
 /* ==== AJUSTE NA MEDIA QUERY (980px) ==== */
 
@@ -475,12 +551,13 @@ body {
 }
 
 .service-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
+    display: flex;
+    flex-direction: column;
 }
 
 .service-card {
+    min-width: 300px; /* Largura mínima de cada depoimento */
+    flex-shrink: 0;
     border-radius: 12px;
     background: #fff;
     padding: 30px;
@@ -528,6 +605,15 @@ body {
     width: 300px;
 }
 
+.stars-group {
+    user-select: none;
+}
+
+.stars-group img {
+    width: 32px;
+    user-select: none;
+}
+
 .features-row1 {
     margin-top: 64px;
     display: flex;
@@ -535,6 +621,7 @@ body {
     align-items: center;
     gap: 40px;
     width: 100%;
+    color: var(--azul-claro);
 }
 
 .features-row1 span {
@@ -546,7 +633,7 @@ body {
     /* Espaço entre o ícone SVG e o texto */
     font-size: 17px;
     font-weight: 700;
-    color: #394657;
+    color: var(--bg-claro);
 }
 
 .features-row1 span svg {
